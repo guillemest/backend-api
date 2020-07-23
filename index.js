@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const routes = require('./routes/main-routes');
-const mongo = require('./database/mongo');
+const routes = require('./api/routes/main-routes');
+const mongo = require('./api/database/mongo');
 
 const app = express();
 app.use(helmet());
@@ -16,14 +16,6 @@ app.use(cors());
 app.use(morgan('combined'));
 
 app.use('/apidoc', express.static('doc'));
-// app.use(function (req, res, next) {
-//     if (!req.get('Authorization')) {
-//         res.status(401).send({
-//             message: 'No autorizado'
-//         });
-//     }
-//     next();
-// });
 app.use('/api', routes);
 
 app.get("/", (req, res) => {
